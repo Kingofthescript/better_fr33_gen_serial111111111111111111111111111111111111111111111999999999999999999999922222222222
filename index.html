@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Barcode Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to bottom right, #85E3FF, #FFB6C1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            transition: background-color 0.3s ease-in-out;
+            color: #333;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            width: 400px;
+            text-align: center;
+            position: relative;
+        }
+
+        .logo {
+            max-width: 80%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.7);
+        }
+
+        .store-buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .store-buttons button {
+            padding: 12px 18px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-image: linear-gradient(to right, #ff7e5f, #feb47b);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .store-buttons button:hover {
+            background-image: linear-gradient(to right, #feb47b, #ff7e5f);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        input[type="text"] {
+            width: 90%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .generate-btn {
+            padding: 12px 20px;
+            background-image: linear-gradient(to right, #28a745, #85e3ff);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .generate-btn:hover {
+            background-image: linear-gradient(to right, #85e3ff, #28a745);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        #barcodeOutput {
+            margin-top: 20px;
+            background-color: white;
+            padding: 10px;
+            border-radius: 8px;
+            display: inline-block;
+            border: 1px solid #ccc;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Logo Area -->
+        <img src="https://media.discordapp.net/attachments/1295093046043742258/1296884410767118346/image.png?ex=6713e93a&is=671297ba&hm=84fb2551fcbb55792465da8c88e067029edaf4c61c6a3e27f8d61756d952011b&=&format=webp&quality=lossless&width=403&height=188" class="logo" alt="Your Logo"> <!-- Replace with your logo URL -->
+        
+        <p>Made By @Imam_habibii</p>
+        
+        <div class="store-buttons">
+            <button onclick="setStore('sainsburys')">Sainsbury's</button>
+            <button onclick="setStore('tesco')">Tesco</button>
+            <button onclick="setStore('mns')">M&S</button>
+            <button onclick="setStore('waitrose')">Waitrose</button>
+        </div>
+
+        <input type="text" id="barcodeInput" placeholder="Enter barcode digits" disabled>
+
+        <button class="generate-btn" id="generateBtn" onclick="generateBarcode()" disabled>Generate Barcode</button>
+
+        <svg id="barcodeOutput"></svg>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
+    <script>
+        let currentStore = '';
+
+        // Function to set the store
+        function setStore(store) {
+            currentStore = store;
+            document.getElementById('barcodeInput').placeholder = `Enter ${store} barcode digits`;
+            document.getElementById('barcodeInput').disabled = false;
+            document.getElementById('generateBtn').disabled = false;
+            document.getElementById('barcodeOutput').innerHTML = ''; // Clear previous barcode output
+        }
+
+        // Barcode generation logic
+        function generateBarcode() {
+            let barcodeDigits = document.getElementById('barcodeInput').value.trim();
+
+            if (!barcodeDigits) {
+                alert('Please enter valid barcode digits.');
+                return;
+            }
+
+            let fullBarcode = '';
+
+            switch (currentStore) {
+                case 'sainsburys':
+                    fullBarcode = '91' + barcodeDigits + '000010' + Math.floor(Math.random() * 9) + 1;
+                    break;
+                case 'tesco':
+                    fullBarcode = '971' + barcodeDigits + '70000408';
+                    break;
+                case 'mns':
+                    if (barcodeDigits.length !== 8) {
+                        alert('M&S barcode requires exactly 8 digits.');
+                        return;
+                    }
+                    fullBarcode = '822' + barcodeDigits + '0016000001';
+                    break;
+                case 'waitrose':
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Barcode Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #1e1e1e; /* Dark background */
+            color: #fff; /* White text */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #2c2c2c; /* Darker card background */
+            border-radius: 12px;
+            padding: 30px;
+            width: 400px;
+            text-align: center;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #ffcc00; /* Gold color for title */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+
+        .store-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .store-buttons button {
+            flex: 1;
+            margin: 5px;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            color: #fff;
+            transition: background-color 0.3s ease;
+        }
+
+        .store-buttons button:hover {
+            opacity: 0.9;
+        }
+
+        .sainsburys {
+            background-color: #ff6600; /* Orange */
+        }
+
+        .tesco {
+            background-color: #007bff; /* Blue */
+        }
+
+        .mandS {
+            background-color: #000; /* Black */
+        }
+
+        .waitrose {
+            background-color: #3cb371; /* Green */
+        }
+
+        input[type="text"] {
+            width: 90%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .generate-btn {
+            padding: 12px 20px;
+            background-color: #28a745; /* Green */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .generate-btn:hover {
+            background-color: #218838; /* Darker green */
+        }
+
+        #barcodeOutput {
+            margin-top: 20px;
+            background-color: white;
+            padding: 10px;
+            border-radius: 8px;
+            display: inline-block;
+            border: 1px solid #ccc;
+            width: 100%; /* Make sure the output takes full width */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Coupon Places Gens</h1>
+        <p>Select a store to generate your custom barcode:</p>
+
+        <div class="store-buttons">
+            <button class="sainsburys" onclick="setStore('sainsburys')">Sainsbury's</button>
+            <button class="mandS" onclick="setStore('mns')">M&S</button>
+            <button class="tesco" onclick="setStore('tesco')">Tesco</button>
+            <button class="waitrose" onclick="setStore('waitrose')">Waitrose</button>
+        </div>
+
+        <input type="text" id="barcodeInput" placeholder="Enter barcode digits" disabled>
+        <button class="generate-btn" id="generateBtn" onclick="generateBarcode()" disabled>Generate Barcode</button>
+
+        <svg id="barcodeOutput"></svg>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
+    <script>
+        let currentStore = '';
+
+        // Function to set the store
+        function setStore(store) {
+            currentStore = store;
+            document.getElementById('barcodeInput').placeholder = `Enter ${store} barcode digits`;
+            document.getElementById('barcodeInput').disabled = false;
+            document.getElementById('generateBtn').disabled = false;
+            document.getElementById('barcodeOutput').innerHTML = ''; // Clear previous barcode output
+        }
+
+        // Barcode generation logic
+        function generateBarcode() {
+            let barcodeDigits = document.getElementById('barcodeInput').value.trim();
+
+            if (!barcodeDigits) {
+                alert('Please enter valid barcode digits.');
+                return;
+            }
+
+            let fullBarcode = '';
+
+            switch (currentStore) {
+                case 'sainsburys':
+                    fullBarcode = '91' + barcodeDigits + '000010' + Math.floor(Math.random() * 9) + 1;
+                    break;
+                case 'tesco':
+                    fullBarcode = '971' + barcodeDigits + '70000408';
+                    break;
+                case 'mns':
+                    if (barcodeDigits.length !== 8) {
+                        alert('M&S barcode requires exactly 8 digits.');
+                        return;
+                    }
+                    fullBarcode = '822' + barcodeDigits + '0016000001';
+                    break;
+                case 'waitrose':
+                    fullBarcode = '10' + barcodeDigits + '00001';
+                    break;
+                default:
+                    alert('Please select a valid store.');
+                    return;
+            }
+
+            // Clear previous barcode output
+            document.getElementById('barcodeOutput').innerHTML = '';
+
+            JsBarcode("#barcodeOutput", fullBarcode, {
+                format: "CODE128",
+                displayValue: true,
+                fontSize: 16,
+                textMargin: 5,
+                margin: 10,
+                lineColor: "#000000"
+            });
+        }
+    </script>
+</body>
+</html>
